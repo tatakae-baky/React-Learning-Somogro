@@ -1,0 +1,22 @@
+.country {
+    border: 2px solid skyblue;
+    margin: 15px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.country img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.country h3{
+    margin-bottom: 0px;
+}
+
+.country-details{
+    display: flex;
+    justify-content: space-between;
+}
