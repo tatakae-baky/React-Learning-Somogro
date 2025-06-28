@@ -10,3 +10,12 @@
     font-size: 18px;
     font-weight: bold;
 }
+
+.flag{
+    width: 80px;
+    height: 80px;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    gap: 10px;
+}
