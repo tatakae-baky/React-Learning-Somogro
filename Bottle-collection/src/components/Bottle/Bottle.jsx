@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import "./Bottle.css";
 
-const Bottle = ({ bottle }) => {
+const Bottle = ({ bottle, handleCart }) => {
   const { name, price, id, img, stock } = bottle;
   const [purchase, setPurchase] = useState(false);
   const [currentStock, setCurrentStock] = useState(stock);
 
   // manage purchasing and stock controlling
   const handlePurchaseAndStock = () => {
-    setPurchase(!purchase);
-    if (!purchase) {
+    setPurchase(true);
+    if (true) {
       const newStock = currentStock - 1;
       setCurrentStock(newStock);
-    } else {
-      setCurrentStock(stock);
     }
   };
 
@@ -25,8 +23,13 @@ const Bottle = ({ bottle }) => {
         <p>Price: {price}</p>
         <p>Stock: {currentStock} </p>
       </div>
-      <button onClick={handlePurchaseAndStock}>
-        {purchase ? "Purchased" : "Purchase"}
+      <button
+        onClick={() => {
+          handlePurchaseAndStock();
+          handleCart(bottle);
+        }}
+      >
+        Purchase
       </button>
     </div>
   );
