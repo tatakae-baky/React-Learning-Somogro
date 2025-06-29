@@ -2,15 +2,15 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Countries from './components/countries/Countries'
+import Bottles from './components/Bottles/Bottles'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>World Tour</h1>
-      <Countries></Countries>
+      <h1>Bottle Collection</h1>
+      <Bottles></Bottles>
     </>
   )
 }

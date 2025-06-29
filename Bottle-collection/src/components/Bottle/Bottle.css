@@ -1,0 +1,29 @@
+.bottle{
+    border: 2px solid seagreen;
+    padding: 5px;
+    border-radius: 5px;
+}
+.bottle img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.bottle button{
+    background-color: seagreen;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.bottle button:hover{
+    background-color: rgb(10, 100, 10);
+}
