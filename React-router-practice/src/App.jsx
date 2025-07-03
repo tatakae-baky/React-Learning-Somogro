@@ -2,16 +2,17 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import Header from "./component/Header/Header";
+import Footer from "./component/Footer/Footer";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <h1 className="text-4xl text-blue-600 p-5 m-5 text-center">
-        React Router Practice
-      </h1>
+      <Header />
+      <Outlet />
       <div className="flex gap-6 justify-center items-center p-5 m-5 text-center">
         {/* Navigation links with enhanced styling */}
         <Link
@@ -33,6 +34,7 @@ function App() {
           Users
         </Link>
       </div>
+      <Footer />
     </>
   );
 }
