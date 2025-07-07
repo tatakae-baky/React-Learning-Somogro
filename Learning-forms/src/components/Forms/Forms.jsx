@@ -19,6 +19,14 @@ const Forms = () => {
       alert("Password does not match")
       return
     }
+    // Reset the form after submission to its initial state 
+    setForm({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        phone: "",
+    })
   }
 
   return (
