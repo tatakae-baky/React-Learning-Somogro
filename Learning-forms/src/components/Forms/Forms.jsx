@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 const Forms = () => {
   const [form, setForm] = useState({
@@ -8,6 +8,16 @@ const Forms = () => {
     confirmPassword: "",
     phone: "",
   });
+
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
+  const phoneRef = useRef(null);
+
+  useEffect(()=> {
+    nameRef.current.focus();
+  } , [])
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -47,6 +57,7 @@ const Forms = () => {
         <label className="flex flex-col items-start gap-2 w-full text-base font-semibold">
           Name:
           <input className="text-sm border-2 border-gray-300 p-2 rounded-md w-full focus:outline-none focus:border-blue-500"
+            ref={nameRef}
             type="text"
             name="name"
             placeholder="Enter Your Name"
@@ -57,6 +68,7 @@ const Forms = () => {
         <label className="flex flex-col items-start gap-2 w-full text-base font-semibold">
           Email:
           <input className="text-sm border-2 border-gray-300 p-2 rounded-md w-full"
+            ref={emailRef}
             type="email"
             name="email"
             placeholder="Enter Your Email"
@@ -67,6 +79,7 @@ const Forms = () => {
         <label className="flex flex-col items-start gap-2 w-full text-base font-semibold">
           Password:
           <input className="text-sm  border-2 border-gray-300 p-2 rounded-md w-full"
+            ref={passwordRef}
             type="password"
             name="password"
             placeholder="Enter Your Password"
@@ -77,6 +90,7 @@ const Forms = () => {
         <label className="flex flex-col items-start gap-2 w-full text-base font-semibold">
           Confirm Password:
           <input className="text-sm border-2 border-gray-300 p-2 rounded-md w-full"
+            ref={confirmPasswordRef}
             type="password"
             name="confirmPassword"
             placeholder="Enter Your Confirm Password"
@@ -87,6 +101,7 @@ const Forms = () => {
         <label className="flex flex-col items-start gap-2 w-full text-base font-semibold">
           Phone Number:
           <input className="text-sm border-2 border-gray-300 p-2 rounded-md w-full"
+            ref={phoneRef}
             type="number"
             name="phone"
             placeholder="Enter Your Phone Number"
