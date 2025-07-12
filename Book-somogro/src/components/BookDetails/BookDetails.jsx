@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useLoaderData } from "react-router-dom";
+import { addToStoredReadList, addToStoredWishList } from "../../utilities/addtoLs";
 
 const BookDetails = () => {
   const { bookId } = useParams();
@@ -18,6 +19,14 @@ const BookDetails = () => {
     yearOfPublishing,
     publisher,
   } = book;
+
+  const handleAddtoMarkRead = (id) => {
+    addToStoredReadList(id);
+  };
+
+  const handleAddtoWishList = (id) => {
+    addToStoredWishList(id);
+  };
 
   return (
     <div className="flex gap-10 items-center justify-center m-10 max-w-screen-xl mx-auto p-6">
@@ -47,17 +56,29 @@ const BookDetails = () => {
           <span className="font-bold">Total Pages : </span> {totalPages}
         </p>
         <p className="text-[16px] text-gray-300">
-          <span className="font-bold">Year of Publishing : </span> {yearOfPublishing}
+          <span className="font-bold">Year of Publishing : </span>{" "}
+          {yearOfPublishing}
         </p>
         <p className="text-[16px] text-gray-300">
           <span className="font-bold">Publisher : </span> {publisher}
         </p>
         <p className="text-[16px] text-gray-300">
-          <span className="font-bold">Rating : </span> {rating} <span className="text-gray-300"> / 5</span>
+          <span className="font-bold">Rating : </span> {rating}{" "}
+          <span className="text-gray-300"> / 5</span>
         </p>
         <div className="flex gap-2 mt-14">
-          <button className="btn btn-outline btn-primary">Mark as Read</button>
-          <button className="btn btn-primary">Add to Wishlist</button>
+          <button
+            className="btn btn-outline btn-primary"
+            onClick={() => handleAddtoMarkRead(bookId)}
+          >
+            Mark as Read
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={() => handleAddtoWishList(bookId)}
+          >
+            Add to Wishlist
+          </button>
         </div>
       </div>
     </div>

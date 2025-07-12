@@ -46,7 +46,7 @@ const Navbar = () => {
             <NavLink to="/listed-books" className={({isActive}) => isActive ? 'text-primary font-bold' : ''}>Listed Books</NavLink>
           </li>
           <li>
-            <NavLink to="/pages-to-read" className={({isActive}) => isActive ? 'text-primary font-bold' : ''}>Pages to Read</NavLink>
+            <NavLink>Pages to Read</NavLink>
           </li>
         </ul>
       </div>
