@@ -1,6 +1,9 @@
 import React from "react";
 import { useParams, useLoaderData } from "react-router-dom";
-import { addToStoredReadList, addToStoredWishList } from "../../utilities/addtoLs";
+import {
+  addToStoredReadList,
+  addToStoredWishList,
+} from "../../utilities/addtoLs";
 
 const BookDetails = () => {
   const { bookId } = useParams();
