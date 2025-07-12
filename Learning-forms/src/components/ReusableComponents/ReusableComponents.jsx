@@ -30,8 +30,7 @@ const ReusableComponents = ({
           value={form.name || ""}
           placeholder="Enter Your Name"
           className="text-sm border-2 border-gray-300 p-2 rounded-md w-full focus:outline-none focus:border-blue-500"
-        />
-        <input
+        />        <input
           onChange={handleChange}
           type="email"
           name="email"
