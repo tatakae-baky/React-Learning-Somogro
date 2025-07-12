@@ -3,6 +3,9 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./components/Root/Root";
 import Error from "./components/Error/Error";
+import Home from "./components/Home/Home";
+import BookDetails from "./components/BookDetails/BookDetails";
+import ListedBooks from "./components/ListedBooks/ListedBooks";
 
 // here we create routes to navigate between the pages
 // Root is the parent component that contains the navbar and footer
@@ -15,6 +18,21 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root></Root>,
     errorElement: <Error></Error>,
+    children: [
+      {
+        path: '/',
+        element: <Home></Home>
+      },
+      {
+        path: '/book/:bookId',
+        element: <BookDetails></BookDetails>,
+        loader: () => fetch('/booksData.json')
+      },
+      {
+        path: '/listed-books',
+        element: <ListedBooks></ListedBooks>
+      }
+    ]
   },
 ]);
 
