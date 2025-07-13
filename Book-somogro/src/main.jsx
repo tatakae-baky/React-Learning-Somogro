@@ -7,6 +7,8 @@ import Home from "./components/Home/Home";
 import BookDetails from "./components/BookDetails/BookDetails";
 import ListedBooks from "./components/ListedBooks/ListedBooks";
 import React from "react";
+import Signup from "./components/Signup/Signup";
+import Login from "./components/Login/Login";
 
 // here we create routes to navigate between the pages
 // Root is the parent component that contains the navbar and footer
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
         path: '/listed-books',
         element: <ListedBooks></ListedBooks>,
         loader: () => fetch('/booksData.json')
+      },
+      {
+        path: '/signup',
+        element:<Signup></Signup>
+      },
+      {
+        path: '/login',
+        element: <Login></Login>
       }
     ]
   },
