@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import auth from "../../utilities/firebase-login";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Set up auth state observer
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    // Clean up subscription on unmount
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogOut = () => {
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+        toast("Sign Out Successful");
+      })
+      .catch((error) => {
+        console.log("ERROR", error);
+      });
+  };
+
   return (
     <div className="navbar bg-base-100 max-w-screen-xl mx-auto">
       <div className="navbar-start">
@@ -28,10 +54,20 @@ const Navbar = () => {
           >
             <NavLink to="/">Home</NavLink>
             <li>
-              <NavLink to="/listed-books" className={({isActive}) => isActive ? 'text-primary' : ''}>Listed Books</NavLink>
+              <NavLink
+                to="/listed-books"
+                className={({ isActive }) => (isActive ? "text-primary" : "")}
+              >
+                Listed Books
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/pages-to-read" className={({isActive}) => isActive ? 'text-primary' : ''}>Pages to Read</NavLink>
+              <NavLink
+                to="/pages-to-read"
+                className={({ isActive }) => (isActive ? "text-primary" : "")}
+              >
+                Pages to Read
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -40,10 +76,24 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <NavLink to="/" className={({isActive}) => isActive ? 'text-primary font-bold' : ''}>Home</NavLink>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "text-primary font-bold" : ""
+              }
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/listed-books" className={({isActive}) => isActive ? 'text-primary font-bold' : ''}>Listed Books</NavLink>
+            <NavLink
+              to="/listed-books"
+              className={({ isActive }) =>
+                isActive ? "text-primary font-bold" : ""
+              }
+            >
+              Listed Books
+            </NavLink>
           </li>
           <li>
             <NavLink>Pages to Read</NavLink>
@@ -51,8 +101,38 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end mr-4 ml-4">
-        <Link to="/signup" className="btn btn-primary">Sign Up</Link>
-        <Link to="/login" className="btn btn-outline ml-2">Login</Link>
+        {user ? (
+          <div className="flex items-center gap-4">
+            <button className="btn btn-primary" onClick={handleLogOut}>
+              Sign Out
+            </button>
+            <div className="dropdown">
+              <div tabIndex={0}>
+                <div className="avatar">
+                  <div className="ring-primary ring-offset-base-100 w-9 rounded-full ring-2 ring-offset-2">
+                    <img src={user.photoURL} />
+                  </div>
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-base-100 rounded-box z-1 w-48 p-2 gap-2 shadow-sm text-center"
+              >
+                <li>{user.displayName}</li>
+                <li>{user.email}</li>
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <Link to="/signup" className="btn btn-primary">
+              Sign Up
+            </Link>
+            <Link to="/login" className="btn btn-outline ml-2">
+              Login
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
