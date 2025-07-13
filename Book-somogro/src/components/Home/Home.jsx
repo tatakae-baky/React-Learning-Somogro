@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div className="max-w-screen-xl mx-auto p-6">
       {/* Hero Section */}
-      <div className="hero bg-base-100 min-h-[70vh] flex justify-between items-center mb-16">
+      <div className="hero bg-base-100 min-h-[70vh] flex justify-between items-center mb-16 border-b-2 border-gray-600">
         <div>
           <h1 className="text-7xl mb-10 text-center lg:text-left lg:text-7xl lg:mb-10">
             Books to freshen up <br />
