@@ -29,7 +29,6 @@ const addToStoredReadList = (id) => {
 
 
 const getStoredWishList = () => {
-    // read-list
     const storedWishListStr = localStorage.getItem('wish-list');
     if (storedWishListStr) {
         const storedWishList = JSON.parse(storedWishListStr);
@@ -54,4 +53,10 @@ const addToStoredWishList = (id) => {
     }
 }
 
-export { addToStoredReadList, addToStoredWishList, getStoredReadList, getStoredWishList }
+const removeFromStoredWishList = (id) => {
+    const storedWishList = getStoredWishList();
+    const filteredWishList = storedWishList.filter(wishlistId => parseInt(wishlistId) !== id)
+    localStorage.setItem('wish-list', JSON.stringify(filteredWishList))
+}
+
+export { addToStoredReadList, addToStoredWishList, getStoredReadList, getStoredWishList, removeFromStoredWishList}

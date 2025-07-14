@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Trash2Icon, PlusIcon } from "lucide-react";
+import { removeFromStoredWishList } from "../../utilities/addtoLs"; 
+import { toast } from "react-toastify";
 
-const ListedBooksPanel = ({ book }) => {
+const ListedBooksPanel = ({ book, isWishList, wishList, setWishList }) => {
   let navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -21,6 +24,13 @@ const ListedBooksPanel = ({ book }) => {
     yearOfPublishing,
     publisher,
   } = book;
+
+  // Function to handle book removal from wishlist
+    const handleRemoveBook = () => {
+      removeFromStoredWishList(bookId);
+      toast.success(`Book removed from wishlist`);
+      setWishList(wishList.filter(book => book.bookId !== bookId));
+    };
 
   return (
     <div className="card flex flex-col sm:card-side bg-base-100 my-4 overflow-hidden">
@@ -113,6 +123,15 @@ const ListedBooksPanel = ({ book }) => {
           <button className="btn btn-success btn-sm mt-2 sm:mt-0" onClick={handleNavigation}>
             View Details
           </button>
+          {/* Only render the trash button if it's in the wishlist */}
+          {isWishList && (
+            <button 
+              className="btn btn-error btn-sm mt-2 sm:mt-0"
+              onClick={handleRemoveBook}
+            >
+              <Trash2Icon className="w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
       <div className="divider my-0 sm:divider-horizontal sm:my-5 sm:mx-[-10px]"></div>

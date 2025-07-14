@@ -32,13 +32,13 @@ const ListedBooks = () => {
       <Tabs>
         <TabList className="flex mb-4 border-b overflow-x-auto cursor-pointer">
           <Tab className="px-3 py-2 text-sm sm:text-base sm:px-4 sm:py-2 focus:outline-none">
-            Read List{" "}
+            Read List
             <span className="text-xs sm:text-sm font-bold text-blue-800">
               ({readList.length})
             </span>
           </Tab>
           <Tab className="px-3 py-2 text-sm sm:text-base sm:px-4 sm:py-2 focus:outline-none">
-            Wish List{" "}
+            Wish List
             <span className="text-xs sm:text-sm font-bold text-blue-800">
               ({wishList.length})
             </span>
@@ -48,7 +48,11 @@ const ListedBooks = () => {
         <TabPanel>
           {readList.length > 0 ? (
             readList.map((book) => (
-              <ListedBooksPanel key={book.bookId} book={book} />
+              <ListedBooksPanel 
+                key={book.bookId} 
+                book={book} 
+                isWishList={false} 
+              />
             ))
           ) : (
             <div className="text-center py-8">
@@ -59,7 +63,13 @@ const ListedBooks = () => {
         <TabPanel>
           {wishList.length > 0 ? (
             wishList.map((book) => (
-              <ListedBooksPanel key={book.bookId} book={book} />
+              <ListedBooksPanel 
+                key={book.bookId} 
+                book={book} 
+                isWishList={true} 
+                wishList={wishList}
+                setWishList={setWishList}
+              />
             ))
           ) : (
             <div className="text-center py-8">
