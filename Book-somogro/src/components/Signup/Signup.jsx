@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -58,15 +57,12 @@ const SignUpForm = () => {
   };
 
   return (
-    <Card className="w-full max-w-sm mx-auto mt-50 mb-50">
+    <Card className="w-full max-w-sm mx-auto mt-30">
       <CardHeader>
         <CardTitle>Signup to your account</CardTitle>
         <CardDescription>
           Enter your email below to signup to your account
         </CardDescription>
-        <CardAction>
-          <Button variant="link">Sign Up</Button>
-        </CardAction>
       </CardHeader>
       <CardContent>
         <form>

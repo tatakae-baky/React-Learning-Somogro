@@ -28,32 +28,44 @@ const ListedBooks = () => {
   }, []);
 
   return (
-    <div className="max-w-screen-xl mx-auto p-6">
+    <div className="max-w-screen-xl mx-auto p-4 sm:p-6">
       <Tabs>
-        <TabList>
-          <Tab>
+        <TabList className="flex mb-4 border-b overflow-x-auto cursor-pointer">
+          <Tab className="px-3 py-2 text-sm sm:text-base sm:px-4 sm:py-2 focus:outline-none">
             Read List{" "}
-            <span className="text-sm font-bold text-blue-800">
+            <span className="text-xs sm:text-sm font-bold text-blue-800">
               ({readList.length})
             </span>
           </Tab>
-          <Tab>
+          <Tab className="px-3 py-2 text-sm sm:text-base sm:px-4 sm:py-2 focus:outline-none">
             Wish List{" "}
-            <span className="text-sm font-bold text-blue-800">
+            <span className="text-xs sm:text-sm font-bold text-blue-800">
               ({wishList.length})
             </span>
           </Tab>
         </TabList>
 
         <TabPanel>
-          {readList.map((book) => (
-            <ListedBooksPanel key={book.bookId} book={book}></ListedBooksPanel>
-          ))}
+          {readList.length > 0 ? (
+            readList.map((book) => (
+              <ListedBooksPanel key={book.bookId} book={book} />
+            ))
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-lg">No books in your read list yet.</p>
+            </div>
+          )}
         </TabPanel>
         <TabPanel>
-          {wishList.map((book) => (
-            <ListedBooksPanel key={book.bookId} book={book}></ListedBooksPanel>
-          ))}
+          {wishList.length > 0 ? (
+            wishList.map((book) => (
+              <ListedBooksPanel key={book.bookId} book={book} />
+            ))
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-lg">No books in your wish list yet.</p>
+            </div>
+          )}
         </TabPanel>
       </Tabs>
     </div>

@@ -12,24 +12,30 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="max-w-screen-xl mx-auto p-6">
+    <div className="max-w-screen-xl mx-auto p-4 sm:p-6">
       {/* Hero Section */}
-      <div className="hero bg-base-100 min-h-[70vh] flex justify-between items-center mb-16 border-b-2 border-gray-600">
-        <div>
-          <h1 className="text-7xl mb-10 text-center lg:text-left lg:text-7xl lg:mb-10">
-            Books to freshen up <br />
+      <div className="hero bg-base-100 min-h-[50vh] sm:min-h-[60vh] md:min-h-[70vh] flex flex-col md:flex-row justify-center md:justify-between items-center gap-8 md:gap-4 mb-10 md:mb-16 border-b-2 border-gray-600 pb-8">
+        <div className="text-center md:text-left order-2 md:order-1">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 md:mb-10">
+            Books to freshen up <br className="hidden sm:block" />
             your bookshelf
           </h1>
           <button className="btn btn-primary">Browse Books</button>
         </div>
-        <img src={heroImg} className="max-w-sm drop-shadow-2xl shadow-white" />
+        <div className="order-1 md:order-2 w-full sm:w-auto flex justify-center">
+          <img 
+            src={heroImg} 
+            alt="Hero image of books" 
+            className="w-[200px] sm:w-[250px] md:w-[300px] lg:max-w-sm drop-shadow-2xl shadow-white object-contain" 
+          />
+        </div>
       </div>
 
       {/* Books Section */}
-      <h1 className="text-4xl font-semibold mb-10 text-center">
+      <h1 className="text-3xl md:text-4xl font-semibold mb-6 md:mb-10 text-center">
         Our Popular Books
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {books.map((book) => (
           <Books key={book.bookId} book={book} />
         ))}

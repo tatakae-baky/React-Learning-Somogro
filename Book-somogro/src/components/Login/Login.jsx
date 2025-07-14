@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import auth from "../../utilities/firebase-login";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -40,9 +39,6 @@ const Login = () => {
         <CardDescription>
           Enter your email below to login to your account
         </CardDescription>
-        <CardAction>
-          <Button variant="link">Login</Button>
-        </CardAction>
       </CardHeader>
       <CardContent>
         <form>
@@ -72,13 +68,13 @@ const Login = () => {
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full cursor-pointer">
           Login
         </Button>
         <Button
           onClick={handleGoogleLogin}
           variant="outline"
-          className="w-full"
+          className="w-full hover:bg-info hover:text-black cursor-pointer"
         >
           Login with Google
         </Button>
