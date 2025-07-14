@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
+
 @plugin "daisyui" {
   themes: light --default, dark --prefersdark, cupcake;
 }
