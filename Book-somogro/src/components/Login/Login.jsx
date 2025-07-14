@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import auth from "../../utilities/firebase-login";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import {
@@ -75,9 +75,19 @@ const Login = () => {
         <Button type="submit" className="w-full">
           Login
         </Button>
-        <Button onClick={handleGoogleLogin} variant="outline" className="w-full">
+        <Button
+          onClick={handleGoogleLogin}
+          variant="outline"
+          className="w-full"
+        >
           Login with Google
         </Button>
+        <p className="text-sm text-muted-foreground">
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-primary hover:underline">
+            Signup
+          </Link>
+        </p>
       </CardFooter>
     </Card>
   );

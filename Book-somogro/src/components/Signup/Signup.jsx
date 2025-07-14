@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useId, useMemo, useState } from "react";
 import { CheckIcon, EyeIcon, EyeOffIcon, XIcon } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Link } from "react-router-dom";
 
 const SignUpForm = () => {
   const id = useId();
@@ -69,6 +71,7 @@ const SignUpForm = () => {
       <CardContent>
         <form>
           <div className="flex flex-col gap-6">
+            {/* Email input field */}
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -78,12 +81,11 @@ const SignUpForm = () => {
                 required
               />
             </div>
+            {/* Password input field */}
             <div>
               {/* Password input field with toggle visibility button */}
               <div className="*:not-first:mt-2">
-                <Label htmlFor={id}>
-                  Password
-                </Label>
+                <Label htmlFor={id}>Password</Label>
                 <div className="relative">
                   <Input
                     id={id}
@@ -103,9 +105,17 @@ const SignUpForm = () => {
                     aria-controls="password"
                   >
                     {isVisible ? (
-                      <EyeOffIcon className="cursor-pointer" size={16} aria-hidden="true" />
+                      <EyeOffIcon
+                        className="cursor-pointer"
+                        size={16}
+                        aria-hidden="true"
+                      />
                     ) : (
-                      <EyeIcon className="cursor-pointer" size={16} aria-hidden="true" />
+                      <EyeIcon
+                        className="cursor-pointer"
+                        size={16}
+                        aria-hidden="true"
+                      />
                     )}
                   </button>
                 </div>
@@ -169,6 +179,20 @@ const SignUpForm = () => {
                 ))}
               </ul>
             </div>
+            {/* Terms of service checkbox */}
+            <div className="flex items-center gap-2">
+              <Checkbox id={id} />
+              <Label htmlFor={id}>
+                I agree to the{" "}
+                <a
+                  className="underline"
+                  href="https://originui.com"
+                  target="_blank"
+                >
+                  terms of service
+                </a>
+              </Label>
+            </div>
           </div>
         </form>
       </CardContent>
@@ -176,6 +200,12 @@ const SignUpForm = () => {
         <Button type="submit" className="w-full cursor-pointer">
           Signup
         </Button>
+        <p className="text-sm text-muted-foreground">
+          Already have an account?{" "}
+          <Link to="/login" className="text-primary hover:underline">
+            Login
+          </Link>
+        </p>
       </CardFooter>
     </Card>
   );
