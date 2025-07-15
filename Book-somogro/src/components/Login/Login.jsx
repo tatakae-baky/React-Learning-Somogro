@@ -1,5 +1,10 @@
-import React from "react";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import React, { useRef } from "react";
+import {
+  GoogleAuthProvider,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import auth from "../../utilities/firebase-login";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -17,6 +22,7 @@ import { Label } from "@/components/ui/label";
 
 const Login = () => {
   const navigate = useNavigate();
+  const emailRef = useRef(); // Create a ref for the email input
 
   const googleProvider = new GoogleAuthProvider();
 
@@ -36,23 +42,40 @@ const Login = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password)
+    console.log(email, password);
 
     signInWithEmailAndPassword(auth, email, password)
-    .then(result => {
-      console.log(result.user)
-      if(result.user.emailVerified){
-        toast.success("Login Successful")
-        navigate("/")
-      } else {
-        toast.error("Please verify your email")
-      }
-    })
-    .catch(error => {
-      console.log(error.message)
-      toast.error(error.message)
-    })
-  }
+      .then((result) => {
+        console.log(result.user);
+        if (result.user.emailVerified) {
+          toast.success("Login Successful");
+          navigate("/");
+        } else {
+          toast.error("Please verify your email");
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error(error.message);
+      });
+  };
+
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+    const email = emailRef.current.value; // Get the value from the ref
+    if (!email) {
+      toast.error("Please enter your email first");
+      return;
+    }
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        toast.success("Password reset email sent");
+      })
+      .catch((error) => {
+        console.log(error.message);
+        toast.error(error.message);
+      });
+  };
 
   return (
     <Card className="w-full max-w-sm mx-auto mt-50 mb-50">
@@ -70,21 +93,23 @@ const Login = () => {
               <Input
                 id="email"
                 type="email"
+                name="email"
                 placeholder="m@example.com"
                 required
+                ref={emailRef} // Attach the ref here
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
                 <a
-                  href="#"
-                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                  onClick={handleForgotPassword}
+                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline cursor-pointer"
                 >
                   Forgot your password?
                 </a>
               </div>
-              <Input id="password" type="password" required />
+              <Input id="password" type="password" name="password" required />
             </div>
           </div>
           <Button type="submit" className="w-full cursor-pointer mt-5">
