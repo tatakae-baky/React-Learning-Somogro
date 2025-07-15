@@ -13,6 +13,7 @@ const Root = () => {
   const hideFooter = 
     pathname === '/login' ||
     pathname === '/signup' ||
+    pathname === '/listed-books' ||
     pathname.startsWith('/book/')
 
   const hideNavbar =

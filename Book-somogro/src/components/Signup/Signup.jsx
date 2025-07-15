@@ -12,12 +12,22 @@ import { Label } from "@/components/ui/label";
 import { useId, useMemo, useState } from "react";
 import { CheckIcon, EyeIcon, EyeOffIcon, XIcon } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
+import auth from "@/utilities/firebase-login";
+import { toast } from "react-toastify";
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
   const id = useId();
   const [password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [error, setError] = useState("");
 
   const toggleVisibility = () => setIsVisible((prevState) => !prevState);
 
@@ -56,6 +66,43 @@ const SignUpForm = () => {
     return "Strong password";
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const checkbox = e.target.checkbox.checked;
+    const username = e.target.username.value;
+    console.log(email, password, checkbox, username);
+
+    if (!checkbox) {
+      setError("Please agree to the terms of service");
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        console.log(result.user);
+        result.user.displayName = username;
+        updateProfile(result.user, {
+          displayName: username,
+        });
+
+        sendEmailVerification(auth.currentUser)
+          .then(() => {
+            toast.success("Email sent, please verify your email");
+            signOut(auth).then(() => {
+              navigate("/login");
+            });
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
   return (
     <Card className="w-full max-w-sm mx-auto mt-30">
       <CardHeader>
@@ -65,8 +112,18 @@ const SignUpForm = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6">
+            <div className="grid gap-2">
+              <Label htmlFor="name">Username</Label>
+              <Input
+                id="username"
+                type="text"
+                placeholder="John Doe"
+                required
+                name="username"
+              />
+            </div>
             {/* Email input field */}
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
@@ -75,6 +132,7 @@ const SignUpForm = () => {
                 type="email"
                 placeholder="m@example.com"
                 required
+                name="email"
               />
             </div>
             {/* Password input field */}
@@ -88,6 +146,7 @@ const SignUpForm = () => {
                     className="pe-9"
                     placeholder="Password"
                     type={isVisible ? "text" : "password"}
+                    name="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     aria-describedby={`${id}-description`}
@@ -177,7 +236,7 @@ const SignUpForm = () => {
             </div>
             {/* Terms of service checkbox */}
             <div className="flex items-center gap-2">
-              <Checkbox id={id} />
+              <Checkbox id={id} name="checkbox" />
               <Label htmlFor={id}>
                 I agree to the{" "}
                 <a
@@ -190,12 +249,15 @@ const SignUpForm = () => {
               </Label>
             </div>
           </div>
+          <Button type="submit" className="w-full cursor-pointer mt-4">
+            Signup
+          </Button>
+          {error && (
+            <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
+          )}
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button type="submit" className="w-full cursor-pointer">
-          Signup
-        </Button>
         <p className="text-sm text-muted-foreground">
           Already have an account?{" "}
           <Link to="/login" className="text-primary hover:underline">

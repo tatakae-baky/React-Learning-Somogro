@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import auth from "../../utilities/firebase-login";
 import { toast } from "react-toastify";
+import ProfileIcon from "../../assets/profile-icon.png";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
@@ -30,6 +31,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-100 max-w-screen-xl mx-auto">
+      {console.log(user)}
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -101,7 +103,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end mr-4 ml-4">
-        {user ? (
+        {user && user.emailVerified ? (
           <div className="flex items-center gap-4">
             <button className="btn btn-primary" onClick={handleLogOut}>
               Sign Out
@@ -109,8 +111,8 @@ const Navbar = () => {
             <div className="dropdown">
               <div tabIndex={0}>
                 <div className="avatar">
-                  <div className="ring-primary ring-offset-base-100 w-9 rounded-full ring-2 ring-offset-2">
-                    <img src={user.photoURL} />
+                  <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring-1 ring-offset-1">
+                    <img src={user.photoURL || ProfileIcon} alt="Profile" />
                   </div>
                 </div>
               </div>

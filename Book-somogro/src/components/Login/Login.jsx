@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import auth from "../../utilities/firebase-login";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -32,6 +32,28 @@ const Login = () => {
       });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password)
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then(result => {
+      console.log(result.user)
+      if(result.user.emailVerified){
+        toast.success("Login Successful")
+        navigate("/")
+      } else {
+        toast.error("Please verify your email")
+      }
+    })
+    .catch(error => {
+      console.log(error.message)
+      toast.error(error.message)
+    })
+  }
+
   return (
     <Card className="w-full max-w-sm mx-auto mt-50 mb-50">
       <CardHeader>
@@ -41,7 +63,7 @@ const Login = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
@@ -65,19 +87,19 @@ const Login = () => {
               <Input id="password" type="password" required />
             </div>
           </div>
+          <Button type="submit" className="w-full cursor-pointer mt-5">
+            Login
+          </Button>
+          <Button
+            onClick={handleGoogleLogin}
+            variant="outline"
+            className="w-full hover:bg-info hover:text-black cursor-pointer mt-2"
+          >
+            Login with Google
+          </Button>
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button type="submit" className="w-full cursor-pointer">
-          Login
-        </Button>
-        <Button
-          onClick={handleGoogleLogin}
-          variant="outline"
-          className="w-full hover:bg-info hover:text-black cursor-pointer"
-        >
-          Login with Google
-        </Button>
         <p className="text-sm text-muted-foreground">
           Don't have an account?{" "}
           <Link to="/signup" className="text-primary hover:underline">
