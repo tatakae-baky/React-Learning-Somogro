@@ -7,11 +7,13 @@ import ProfileIcon from "../../assets/profile-icon.png";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Set up auth state observer
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
     });
 
     // Clean up subscription on unmount
@@ -32,110 +34,126 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 max-w-screen-xl mx-auto">
       {console.log(user)}
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <NavLink to="/">Home</NavLink>
-            <li>
-              <NavLink
-                to="/listed-books"
-                className={({ isActive }) => (isActive ? "text-primary" : "")}
-              >
-                Listed Books
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/pages-to-read"
-                className={({ isActive }) => (isActive ? "text-primary" : "")}
-              >
-                Pages to Read
-              </NavLink>
-            </li>
-          </ul>
+      {loading ? (
+        <div className="flex justify-center items-center h-screen mx-auto">
+          <span className="loading loading-spinner loading-xl"></span>
         </div>
-        <a className="btn btn-ghost text-xl">Book Somogro</a>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "text-primary font-bold" : ""
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/listed-books"
-              className={({ isActive }) =>
-                isActive ? "text-primary font-bold" : ""
-              }
-            >
-              Listed Books
-            </NavLink>
-          </li>
-          <li>
-            <NavLink>Pages to Read</NavLink>
-          </li>
-        </ul>
-      </div>
-      <div className="navbar-end mr-4 ml-4">
-        {user && user.emailVerified ? (
-          <div className="flex items-center gap-4">
-            <button className="btn btn-primary" onClick={handleLogOut}>
-              Sign Out
-            </button>
+      ) : (
+        <>
+          <div className="navbar-start">
             <div className="dropdown">
-              <div tabIndex={0}>
-                <div className="avatar">
-                  <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring-1 ring-offset-1">
-                    <img src={user.photoURL || ProfileIcon} alt="Profile" />
-                  </div>
-                </div>
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost lg:hidden"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h8m-8 6h16"
+                  />
+                </svg>
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu bg-base-100 rounded-box z-1 w-48 p-2 gap-2 shadow-sm text-center"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
-                <li>{user.displayName}</li>
-                <li>{user.email}</li>
+                <NavLink to="/">Home</NavLink>
+                <li>
+                  <NavLink
+                    to="/listed-books"
+                    className={({ isActive }) =>
+                      isActive ? "text-primary" : ""
+                    }
+                  >
+                    Listed Books
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/pages-to-read"
+                    className={({ isActive }) =>
+                      isActive ? "text-primary" : ""
+                    }
+                  >
+                    Pages to Read
+                  </NavLink>
+                </li>
               </ul>
             </div>
+            <a className="btn btn-ghost text-xl">Book Somogro</a>
           </div>
-        ) : (
-          <div>
-            <Link to="/signup" className="btn btn-primary">
-              Sign Up
-            </Link>
-            <Link to="/login" className="btn btn-outline ml-2">
-              Login
-            </Link>
+          <div className="navbar-center hidden lg:flex">
+            <ul className="menu menu-horizontal px-1">
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive ? "text-primary font-bold" : ""
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/listed-books"
+                  className={({ isActive }) =>
+                    isActive ? "text-primary font-bold" : ""
+                  }
+                >
+                  Listed Books
+                </NavLink>
+              </li>
+              <li>
+                <NavLink>Pages to Read</NavLink>
+              </li>
+            </ul>
           </div>
-        )}
-      </div>
+          <div className="navbar-end mr-4 ml-4">
+            {user && user.emailVerified ? (
+              <div className="flex items-center gap-4">
+                <button className="btn btn-primary" onClick={handleLogOut}>
+                  Sign Out
+                </button>
+                <div className="dropdown">
+                  <div tabIndex={0}>
+                    <div className="avatar">
+                      <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring-1 ring-offset-1">
+                        <img src={user.photoURL || ProfileIcon} alt="Profile" />
+                      </div>
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content menu bg-base-100 rounded-box z-1 w-48 p-2 gap-2 shadow-sm text-center"
+                  >
+                    <li>{user.displayName}</li>
+                    <li>{user.email}</li>
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <Link to="/signup" className="btn btn-primary">
+                  Sign Up
+                </Link>
+                <Link to="/login" className="btn btn-outline ml-2">
+                  Login
+                </Link>
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };
