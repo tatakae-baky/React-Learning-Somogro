@@ -6,7 +6,6 @@ import Error from "./components/Error/Error";
 import Home from "./components/Home/Home";
 import BookDetails from "./components/BookDetails/BookDetails";
 import ListedBooks from "./components/ListedBooks/ListedBooks";
-import React from "react";
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 
@@ -49,7 +48,5 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
 );
