@@ -17,16 +17,15 @@ const Home = () => {
       <div className="hero bg-base-100 min-h-[50vh] sm:min-h-[60vh] md:min-h-[70vh] flex flex-col md:flex-row justify-center md:justify-between items-center gap-8 md:gap-4 mb-10 md:mb-16 border-b-2 border-gray-600 pb-8">
         <div className="text-center md:text-left order-2 md:order-1">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 md:mb-10">
-            Books to freshen up <br className="hidden sm:block" />
-            your bookshelf
+            Books To Freshen <br className="hidden sm:block" />
+            Up Your Bookshelf
           </h1>
           <button className="btn btn-primary">Browse Books</button>
         </div>
-        <div className="order-1 md:order-2 w-full sm:w-auto flex justify-center">
+        <div className="order-1 md:order-2 w-full sm:w-auto flex justify-center lg:w-[40%] h-[450px]">
           <img 
             src={heroImg} 
             alt="Hero image of books" 
-            className="w-[200px] sm:w-[250px] md:w-[300px] lg:max-w-sm drop-shadow-2xl shadow-white object-contain" 
           />
         </div>
       </div>
