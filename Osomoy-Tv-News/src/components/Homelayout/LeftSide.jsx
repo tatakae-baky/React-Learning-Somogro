@@ -16,9 +16,9 @@ const LeftSide = () => {
         All categories{" "}
         <span className="text-[#D72050]">({categories.length})</span>{" "}
       </p>
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-2">
         {categories.map((category) => (
-          <NavLink to={`category/${category.category_id}`} className="cursor-pointer p-2 text-center border-2 border-amber-500" key={category.category_id}>{category.category_name}</NavLink>
+          <NavLink to={`category/${category.category_id}`} className="cursor-pointer p-2 text-center" key={category.category_id}>{category.category_name}</NavLink>
         ))}
       </div>
     </div>

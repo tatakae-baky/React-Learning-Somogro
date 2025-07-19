@@ -4,35 +4,56 @@ import RightSide from "@/components/Homelayout/RightSide";
 import LatestNews from "@/components/LatestNews";
 import Navbar from "@/components/Navbar";
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const HomeLayout = () => {
+
+  const location = useLocation();
+  const {pathname} = location;
+
+  const hideNavbar = 
+  pathname.startsWith('/news')
+
+  const hideLatesNews = 
+  pathname.startsWith('/news')
+
+  const hideLeftSide = 
+  pathname.startsWith('/news')
+
   return (
-    <div>
+    <>
       {/* Navbar and Header */}
       <header>
-        <Navbar></Navbar>
+        {!hideNavbar && <Navbar></Navbar>}
         <Header></Header>
-        <section className="w-11/12 mx-auto px-8">
-          <LatestNews></LatestNews>
+        <section className="w-11/12 mx-auto px-8 mt-4">
+          {!hideLatesNews && <LatestNews></LatestNews>}
         </section>
       </header>
       {/* Main Content */}
-      <main className="w-11/12 mx-auto my-8 px-8 grid grid-cols-12 gap-5">
+      <main className="w-11/12 mx-auto my-12 px-8 grid grid-cols-12 gap-5">
         {/* Left Sidebar */}
-        <aside className="col-span-2 sticky top-0 h-fit">
-          <LeftSide></LeftSide>
-        </aside>
+        {
+          !hideLeftSide && (
+            <aside className="col-span-2 sticky top-0 h-fit">
+              <LeftSide></LeftSide>
+            </aside>
+          )
+        }
         {/* News Contents */}
-        <section className="main col-span-7">
-          <Outlet></Outlet>
-        </section>
+        {
+          !hideLeftSide? <section className="main col-span-7">
+            <Outlet></Outlet>
+          </section> : <section className="main col-span-9">
+            <Outlet></Outlet>
+          </section>
+        }
         {/* Right Sidebar */}
         <aside className="col-span-3 sticky top-0 h-fit border-2 border-amber-600">
           <RightSide></RightSide>
         </aside>
       </main>
-    </div>
+    </>
   );
 };
 

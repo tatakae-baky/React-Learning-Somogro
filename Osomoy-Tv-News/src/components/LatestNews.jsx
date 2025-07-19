@@ -7,7 +7,7 @@ import Marquee from "react-fast-marquee";
  */
 const LatestNews = () => {
   return (
-    <div className="flex mt-8">
+    <div className="flex">
       {/* Headline label with brand color */}
       <h2 className="bg-[#D72050] text-white p-2 font-semibold">Headline</h2>
       

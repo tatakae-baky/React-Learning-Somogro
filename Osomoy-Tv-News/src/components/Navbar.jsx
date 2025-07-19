@@ -17,7 +17,7 @@ export default function Navbar() {
       <div className="w-11/12 mx-auto px-4 py-2 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Date */}
-          <div className="flex flex-col items-start gap-0.5 ">
+          <div className="flex flex-col gap-0.5 ">
             <p className="font-bold text-gray-700">
               {format(new Date(), "EEEE , MMMM MM , yyyy")}
             </p>
@@ -39,13 +39,13 @@ export default function Navbar() {
           {/* Right side actions */}
           <div className="flex items-center space-x-4">
             {/* Signup button */}
-            <Button className="text-gray-100 hover:text-[#D72050] hover:bg-black ">
+            <Button className="text-gray-100 hover:bg-[#D72050] hover:text-white ">
               {" "}
               Sign Up
             </Button>
 
             {/* Login button */}
-            <Button className="text-gray-100 hover:text-[#D72050] hover:bg-black ">
+            <Button className="text-gray-100 bg-[#D72050] hover:text-gray-100 hover:bg-black ">
               {" "}
               Log In
             </Button>
