@@ -5,6 +5,7 @@ import LatestNews from "@/components/LatestNews";
 import Navbar from "@/components/Navbar";
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import FindUsOn from "@/components/Homelayout/FindUsOn";
 
 const HomeLayout = () => {
 
@@ -18,6 +19,9 @@ const HomeLayout = () => {
   pathname.startsWith('/news')
 
   const hideLeftSide = 
+  pathname.startsWith('/news')
+
+  const showLoginSignup = 
   pathname.startsWith('/news')
 
   return (
@@ -35,7 +39,7 @@ const HomeLayout = () => {
         {/* Left Sidebar */}
         {
           !hideLeftSide && (
-            <aside className="col-span-2 sticky top-0 h-fit">
+            <aside className="col-span-2 sticky top-4 h-fit">
               <LeftSide></LeftSide>
             </aside>
           )
@@ -49,8 +53,9 @@ const HomeLayout = () => {
           </section>
         }
         {/* Right Sidebar */}
-        <aside className="col-span-3 sticky top-0 h-fit border-2 border-amber-600">
-          <RightSide></RightSide>
+        <aside className="col-span-3 sticky top-4 h-fit">
+          <RightSide>
+          </RightSide>
         </aside>
       </main>
     </>
