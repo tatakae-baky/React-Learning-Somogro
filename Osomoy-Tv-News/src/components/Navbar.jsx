@@ -14,11 +14,11 @@ export default function Navbar() {
 
   return (
     <header>
-      <div className="w-11/12 mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-11/12 mx-auto px-4 py-2 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* empty div to center the navigations */}
-          <div className="flex items-center">
-            <p className="font-semibold text-gray-700">
+          {/* Date */}
+          <div className="flex flex-col items-start gap-0.5 ">
+            <p className="font-bold text-gray-700">
               {format(new Date(), "EEEE , MMMM MM , yyyy")}
             </p>
           </div>
