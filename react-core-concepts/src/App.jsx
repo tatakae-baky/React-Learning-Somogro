@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import AarongProducts from './components/AarongProducts'
+import CategorySelector from './components/CategorySelector'
 
 function App() {
+  const [selectedCategory, setSelectedCategory] = useState('women-saree')
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -70,83 +73,75 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>EtherealBD Products</h1>
-        <p>Found {products.length} products</p>
+        <h1>Bangladesh Fashion Marketplace</h1>
+        <p>Explore products from top Bangladeshi brands</p>
       </header>
 
-      <main className="products-container">
-        {products.length === 0 ? (
-          <p>No products found.</p>
-        ) : (
-          <div className="products-grid">
-            {products.map((product) => (
-              <div key={product.id} className="product-card">
-                <div className="product-image">
-                  {product.images && product.images.length > 0 ? (
-                    <img 
-                      src={product.images[0].src} 
-                      alt={product.images[0].alt || product.name}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="no-image">No Image</div>
-                  )}
-                </div>
-                
-                <div className="product-info">
-                  <h3 className="product-name">{product.name}</h3>
-                  
-                  <div className="product-price">
-                    {product.prices.sale_price && product.prices.sale_price !== product.prices.regular_price ? (
-                      <>
-                        <span className="sale-price">
-                          {formatPrice(product.prices.sale_price)}
-                        </span>
-                        <span className="regular-price">
-                          {formatPrice(product.prices.regular_price)}
-                        </span>
-                      </>
-                    ) : (
-                      <span className="price">
-                        {formatPrice(product.prices.regular_price)}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="product-meta">
-                    <span className={`stock-status ${product.is_in_stock ? 'in-stock' : 'out-of-stock'}`}>
-                      {product.is_in_stock ? 'In Stock' : 'Out of Stock'}
-                    </span>
+      <main>
+        {/* EtherealBD Products Section */}
+        <section className="section">
+          <h2>EtherealBD Products</h2>          
+          <div className="products-container">
+            {products.length === 0 ? (
+              <p>No products found.</p>
+            ) : (
+              <div className="products-grid">
+                {products.map((product) => (
+                  <div key={product.id} className="product-card" onClick={() => window.open(product.permalink, '_blank')} style={{ cursor: 'pointer' }}>
+                    <div className="product-image">
+                      {product.images && product.images.length > 0 ? (
+                        <img 
+                          src={product.images[0].src} 
+                          alt={product.images[0].alt || product.name}
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="no-image">No Image</div>
+                      )}
+                    </div>
                     
-                    {product.average_rating > 0 && (
-                      <span className="rating">
-                        ⭐ {product.average_rating} ({product.review_count} reviews)
-                      </span>
-                    )}
+                    <div className="product-info">
+                      {/* Display category name if available */}
+                      {product.categories && product.categories.length > 0 && (
+                        <div className="product-category">
+                          {product.categories[0].name}
+                        </div>
+                      )}
+                      
+                      <h3 className="product-name">{product.name}</h3>
+                      
+                      <div className="product-price">
+                        {product.prices.sale_price && product.prices.sale_price !== product.prices.regular_price ? (
+                          <>
+                            <span className="sale-price">
+                              {formatPrice(product.prices.sale_price)}
+                            </span>
+                            <span className="regular-price">
+                              {formatPrice(product.prices.regular_price)}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="price">
+                            {formatPrice(product.prices.regular_price)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
-
-                  {product.short_description && (
-                    <div 
-                      className="product-description" 
-                      dangerouslySetInnerHTML={{ 
-                        __html: product.short_description 
-                      }}
-                    />
-                  )}
-
-                  <div className="product-actions">
-                    <button 
-                      className="view-product-btn"
-                      onClick={() => window.open(product.permalink, '_blank')}
-                    >
-                      View Product
-                    </button>
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        )}
+        </section>
+
+        {/* Category Selector */}
+        <CategorySelector 
+          selectedCategory={selectedCategory} 
+          onCategoryChange={setSelectedCategory} 
+        />
+
+        {/* Aarong Products Section */}
+        <AarongProducts category={selectedCategory} />
       </main>
     </div>
   )

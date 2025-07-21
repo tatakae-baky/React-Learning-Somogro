@@ -10,6 +10,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
         rewrite: (path) => path.replace(/^\/api/, '/wp-json/wc/store/v1')
+      },
+      '/aarong': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/aarong/, '')
       }
     }
   }
