@@ -47,9 +47,12 @@ function AarongProducts({ category }) {
   // Loading state
   if (loading) {
     return (
-      <div className="section">
+      <div className="section aarong-section">
         <h2>Aarong Products</h2>
-        <div className="loading">Loading Aarong products...</div>
+        <div className="loading">
+          <div className="loading-spinner"></div>
+          <p>Loading Aarong products...</p>
+        </div>
       </div>
     );
   }
@@ -57,17 +60,18 @@ function AarongProducts({ category }) {
   // Error state
   if (error) {
     return (
-      <div className="section">
+      <div className="section aarong-section">
         <h2>Aarong Products</h2>
         <div className="error">
           <p>Error loading Aarong products: {error}</p>
+          <button onClick={() => window.location.reload()}>Try Again</button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="section">
+    <div className="section aarong-section">
       <h2>Aarong Products</h2>
       <div className="products-container">
         {products.length === 0 ? (
@@ -82,6 +86,11 @@ function AarongProducts({ category }) {
                       src={product.img} 
                       alt={product.name}
                       loading="lazy"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = 'https://www.aarong.com/media/logo/stores/1/aarong-logo.jpg';
+                        e.target.style.padding = '20px';
+                      }}
                     />
                   ) : (
                     <div className="no-image">No Image</div>
